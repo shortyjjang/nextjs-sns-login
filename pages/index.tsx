@@ -5,10 +5,14 @@ import { userState } from '@/states/user'
 import dayjs from 'dayjs'
 import { KakaoType } from "@/components/kakao/type";
 
-interface ExtendedWindow extends Window {
-  Kakao: KakaoType;
+export type LoginProps = {
+  className?:string;
+  children: React.ReactNode;
+  style?: React.CSSProperties;
+  onSuccess: (response: LoginType) => void;
+  /** 로그인 실패 후 콜백 */
+  onFail: (error: string) => void;
 }
-declare let window: ExtendedWindow;
 export type LoginType = {
   token: string;
   expires: string;
@@ -16,6 +20,11 @@ export type LoginType = {
   nickname: string;
   provider: string;
 }
+interface ExtendedWindow extends Window {
+  Kakao: KakaoType;
+}
+declare let window: ExtendedWindow;
+
 export default function Home() {
   const [user, setUser] = useRecoilState(userState)
   const onLogout = () => {

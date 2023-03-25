@@ -1,5 +1,6 @@
 import { useEffect } from "react";
-import { KakaoType, KaKaoProps } from "./type";
+import { KakaoType } from "./type";
+import { LoginProps } from "@/pages";
 
 interface ExtendedWindow extends Window {
   Kakao: KakaoType;
@@ -19,7 +20,7 @@ const loadSdk = () => {
 };
 
 
-export default function KakaoLogin({children, className, style, onSuccess, onFail}:KaKaoProps) {
+export default function KakaoLogin({children, className, style, onSuccess, onFail}:LoginProps) {
   useEffect(() => {
       const kakaoInit = async (key:string) => {
           await loadSdk()

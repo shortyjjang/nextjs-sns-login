@@ -1,5 +1,3 @@
-import { LoginType } from "@/pages";
-import React from "react";
 
 
 type KakaoResponse = {
@@ -15,14 +13,6 @@ type KakaoResponse = {
     refresh_token_expires_in: number;
     /** 인증된 사용자의 정보 조회 권한 범위 */
     scope: string; // 범위가 여러 개일 경우, 공백으로 구분
-}
-export type KaKaoProps = {
-    className?:string;
-    children: React.ReactNode;
-    style?: React.CSSProperties;
-    onSuccess: (response: LoginType) => void;
-    /** 로그인 실패 후 콜백 */
-    onFail: (error: string) => void;
 }
 type KakaoAccount = {
     /** 프로필 정보 */
