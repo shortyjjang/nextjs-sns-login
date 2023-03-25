@@ -4,7 +4,7 @@ import { LoginProps } from "@/pages";
 import { useRouter } from "next/router";
 import dayjs from "dayjs";
 interface ExtendedWindow extends Window {
-  naver: NaverType
+    naver: NaverType
 }
 declare let window: ExtendedWindow;
 
@@ -21,7 +21,7 @@ const loadSdk = () => {
 };
 
 
-export default function NaverLogin({children, className, style, onSuccess, onFail}:LoginProps) {
+export default function NaverLogin({children, className, style, onSuccess}:LoginProps) {
     const [initNaver, setInitNaver] = useState<boolean>(false)
     const router = useRouter()
     const naverInit = useCallback(async (key:string) => {
@@ -55,7 +55,7 @@ export default function NaverLogin({children, className, style, onSuccess, onFai
                 })
             }
         }) 
-    },[router.asPath, router.query])
+    },[onSuccess, router.asPath, router.query.accessToken])
     useEffect(() => {
         if(!initNaver) naverInit(`${process.env.NEXT_PUBLIC_NAVER_YES_US_CLIENT_KEY}`)
     },[initNaver, naverInit])
@@ -69,7 +69,7 @@ export default function NaverLogin({children, className, style, onSuccess, onFai
         if(router.query.social === 'naver') {
             naverInit(`${process.env.NEXT_PUBLIC_NAVER_YES_US_CLIENT_KEY}`)
         }
-    },[])
+    },[naverInit, router.asPath, router.pathname, router.query.social])
     return (
         <div className={className} style={style}>{children}</div>
     )

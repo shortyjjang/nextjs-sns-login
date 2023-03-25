@@ -4,14 +4,15 @@ import { useRecoilState } from "recoil";
 import { userState } from '@/states/user'
 import dayjs from 'dayjs'
 import { KakaoType } from "@/components/kakao/type";
+import NaverLogin from "@/components/naver";
 
 export type LoginProps = {
   className?:string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   style?: React.CSSProperties;
   onSuccess: (response: LoginType) => void;
   /** 로그인 실패 후 콜백 */
-  onFail: (error: string) => void;
+  onFail?: (error: string) => void;
 }
 export type LoginType = {
   token: string;
@@ -70,6 +71,7 @@ export default function Home() {
         <button onClick={onLogout}>{user.provider} 로그아웃 하기</button>
       : <>
         <KakaoLogin onSuccess={onLogin} onFail={onFail} style={{background:'#fee500'}}>카카오로 로그인하기</KakaoLogin>
+        <NaverLogin onSuccess={onLogin}></NaverLogin>
       </>}
     </>
   )

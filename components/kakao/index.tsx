@@ -45,7 +45,7 @@ export default function KakaoLogin({children, className, style, onSuccess, onFai
               }
               onSuccess(result);
             },
-            fail: (error) => onFail(error.error_description),
+            fail: (error) => onFail && onFail(error.error_description),
           });
         },
         fail: function (e) {
