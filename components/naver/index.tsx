@@ -21,7 +21,7 @@ const loadSdk = () => {
 };
 
 
-export default function NaverLogin({children, className, style, onSuccess}:LoginProps) {
+export default function NaverLogin({children, className, style, onSuccess, setLogin}:LoginProps) {
     const [initNaver, setInitNaver] = useState<boolean>(false)
     const router = useRouter()
     const naverInit = useCallback(async (key:string) => {
@@ -43,6 +43,7 @@ export default function NaverLogin({children, className, style, onSuccess}:Login
         const token = router.query.accessToken?.toString()
         naverLogin.getLoginStatus((status:any) => {
             if(status) {
+                setLogin && setLogin(naverLogin)
                 //로그인상태일때
                 const email = naverLogin.user.getEmail();
                 const nickname = naverLogin.user.getNickName();

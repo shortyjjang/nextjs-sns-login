@@ -5,6 +5,7 @@ import { userState } from '@/states/user'
 import dayjs from 'dayjs'
 import { KakaoType } from "@/components/kakao/type";
 import NaverLogin from "@/components/naver";
+import { useState } from "react";
 
 export type LoginProps = {
   className?:string;
@@ -13,6 +14,7 @@ export type LoginProps = {
   onSuccess: (response: LoginType) => void;
   /** 로그인 실패 후 콜백 */
   onFail?: (error: string) => void;
+  setLogin?: (response: any) => void;
 }
 export type LoginType = {
   token: string;
@@ -28,6 +30,7 @@ declare let window: ExtendedWindow;
 
 export default function Home() {
   const [user, setUser] = useRecoilState(userState)
+  const [login, setLogin] = useState<any>(null)
   const onLogout = () => {
     if(!user.isLogin) return;
     switch(user.provider){
@@ -42,6 +45,7 @@ export default function Home() {
         });
       break;
       case 'NAVER':
+        login.logout();
       break;
       case 'APPLEID':
       break;
@@ -71,7 +75,7 @@ export default function Home() {
         <button onClick={onLogout}>{user.provider} 로그아웃 하기</button>
       : <>
         <KakaoLogin onSuccess={onLogin} onFail={onFail} style={{background:'#fee500'}}>카카오로 로그인하기</KakaoLogin>
-        <NaverLogin onSuccess={onLogin}></NaverLogin>
+        <NaverLogin onSuccess={onLogin} setLogin={setLogin}></NaverLogin>
       </>}
     </>
   )
