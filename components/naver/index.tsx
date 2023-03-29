@@ -56,9 +56,9 @@ export default function NaverLogin({children, className, style, onSuccess, setLo
                 })
             }
         }) 
-    },[onSuccess, router.asPath, router.query.accessToken])
+    },[onSuccess, router.asPath, router.query.accessToken, setLogin])
     useEffect(() => {
-        if(!initNaver) naverInit(`${process.env.NEXT_PUBLIC_NAVER_YES_US_CLIENT_KEY}`)
+        if(!initNaver) naverInit(`${process.env.NEXT_PUBLIC_NAVER_CLIENT_KEY}`)
     },[initNaver, naverInit])
     useEffect(() => {
         if(router.asPath.includes('#access_token')) {
@@ -68,7 +68,7 @@ export default function NaverLogin({children, className, style, onSuccess, setLo
             window.self.close();
         }
         if(router.query.social === 'naver') {
-            naverInit(`${process.env.NEXT_PUBLIC_NAVER_YES_US_CLIENT_KEY}`)
+            naverInit(`${process.env.NEXT_PUBLIC_NAVER_CLIENT_KEY}`)
         }
     },[naverInit, router.asPath, router.pathname, router.query.social])
     return (
